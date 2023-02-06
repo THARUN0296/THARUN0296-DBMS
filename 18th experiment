@@ -1,0 +1,124 @@
+mysql> use saveetha;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_saveetha |
++--------------------+
+| empdept            |
+| employees          |
+| marks_view         |
+| mdept              |
+| mentee             |
+| mentees            |
+| movie              |
+| movies             |
+| per                |
+| students           |
+| studepartment      |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> create table marks(Regno int(10),Name varchar(25),Marks int(3));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into marks values(100,"Deepshika",99);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into marks values(101,"Lavanya",94);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into marks values(102,"Rajyasri",98);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into marks values(103,"Harini",96);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into marks values(104,"Dharika",92);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into marks values(105,"Tejaswini",91);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from marks;
++-------+-----------+-------+
+| Regno | Name      | Marks |
++-------+-----------+-------+
+|   100 | Deepshika |    99 |
+|   101 | Lavanya   |    94 |
+|   102 | Rajyasri  |    98 |
+|   103 | Harini    |    96 |
+|   104 | Dharika   |    92 |
+|   105 | Tejaswini |    91 |
++-------+-----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> insert into marks values(106,"Nandu",97);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from marks;
++-------+-----------+-------+
+| Regno | Name      | Marks |
++-------+-----------+-------+
+|   100 | Deepshika |    99 |
+|   101 | Lavanya   |    94 |
+|   102 | Rajyasri  |    98 |
+|   103 | Harini    |    96 |
+|   104 | Dharika   |    92 |
+|   105 | Tejaswini |    91 |
+|   106 | Nandu     |    97 |
++-------+-----------+-------+
+7 rows in set (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @@autocommit;
++--------------+
+| @@autocommit |
++--------------+
+|            0 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> delete from marks where marks=97;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from marks;
++-------+-----------+-------+
+| Regno | Name      | Marks |
++-------+-----------+-------+
+|   100 | Deepshika |    99 |
+|   101 | Lavanya   |    94 |
+|   102 | Rajyasri  |    98 |
+|   103 | Harini    |    96 |
+|   104 | Dharika   |    92 |
+|   105 | Tejaswini |    91 |
++-------+-----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select*from marks;
++-------+-----------+-------+
+| Regno | Name      | Marks |
++-------+-----------+-------+
+|   100 | Deepshika |    99 |
+|   101 | Lavanya   |    94 |
+|   102 | Rajyasri  |    98 |
+|   103 | Harini    |    96 |
+|   104 | Dharika   |    92 |
+|   105 | Tejaswini |    91 |
+|   106 | Nandu     |    97 |
++-------+-----------+-------+
+7 rows in set (0.00 sec)
+
+mysql>

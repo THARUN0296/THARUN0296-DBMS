@@ -1,0 +1,115 @@
+mysql> use saveetha;
+Database changed
+mysql> create table movie(Sno int(3),Moviename varchar(30),Type varchar(15));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into movie values(1,"Red","Thriller");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into movie values(2,"ATM","Thriller");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into movie values(3,"Conjuring","Horror");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into movie values(4,"Lovetoday","Comedy");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from movie;
++------+-----------+----------+
+| Sno  | Moviename | Type     |
++------+-----------+----------+
+|    1 | Red       | Thriller |
+|    2 | ATM       | Thriller |
+|    3 | Conjuring | Horror   |
+|    4 | Lovetoday | Comedy   |
++------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint ini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into movie values(5,"Pakkacommercial","Commercial");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from movie;
++------+-----------------+------------+
+| Sno  | Moviename       | Type       |
++------+-----------------+------------+
+|    1 | Red             | Thriller   |
+|    2 | ATM             | Thriller   |
+|    3 | Conjuring       | Horror     |
+|    4 | Lovetoday       | Comedy     |
+|    5 | Pakkacommercial | Commercial |
++------+-----------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> savepoint ins;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update movie set Moviename="Mr.Local" where Sno=5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from movie;
++------+-----------+------------+
+| Sno  | Moviename | Type       |
++------+-----------+------------+
+|    1 | Red       | Thriller   |
+|    2 | ATM       | Thriller   |
+|    3 | Conjuring | Horror     |
+|    4 | Lovetoday | Comedy     |
+|    5 | Mr.Local  | Commercial |
++------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> savepoint upd;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from movie where Sno=5;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from movie;
++------+-----------+----------+
+| Sno  | Moviename | Type     |
++------+-----------+----------+
+|    1 | Red       | Thriller |
+|    2 | ATM       | Thriller |
+|    3 | Conjuring | Horror   |
+|    4 | Lovetoday | Comedy   |
++------+-----------+----------+
+4 rows in set (0.02 sec)
+
+mysql> savepoint del;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback to upd;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from movie;
++------+-----------+----------+
+| Sno  | Moviename | Type     |
++------+-----------+----------+
+|    1 | Red       | Thriller |
+|    2 | ATM       | Thriller |
+|    3 | Conjuring | Horror   |
+|    4 | Lovetoday | Comedy   |
++------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> rollback to ini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from movie;
++------+-----------+----------+
+| Sno  | Moviename | Type     |
++------+-----------+----------+
+|    1 | Red       | Thriller |
+|    2 | ATM       | Thriller |
+|    3 | Conjuring | Horror   |
+|    4 | Lovetoday | Comedy   |
++------+-----------+----------+
+4 rows in set (0.00 sec)

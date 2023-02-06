@@ -1,0 +1,239 @@
+mysql> use saveetha;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_saveetha |
++--------------------+
+| authors            |
+| book_company       |
+| car                |
+| company            |
+| cost               |
+| doctor             |
+| empdept            |
+| employees          |
+| marks              |
+| marks_view         |
+| mdept              |
+| mentee             |
+| mentees            |
+| movie              |
+| movies             |
+| patients           |
+| per                |
+| pharmacy           |
+| room_accomodation  |
+| store              |
+| students           |
+| studepartment      |
++--------------------+
+22 rows in set (0.00 sec)
+
+mysql> create table student(Reg_no int(4),Name varchar(30),DBMS int(3),Maths int(3),Java int(3),OS int(3),Grade char(1),Result varchar(5));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Reg_no | int(4)      | YES  |     | NULL    |       |
+| Name   | varchar(30) | YES  |     | NULL    |       |
+| DBMS   | int(3)      | YES  |     | NULL    |       |
+| Maths  | int(3)      | YES  |     | NULL    |       |
+| Java   | int(3)      | YES  |     | NULL    |       |
+| OS     | int(3)      | YES  |     | NULL    |       |
+| Grade  | char(1)     | YES  |     | NULL    |       |
+| Result | varchar(5)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+8 rows in set (0.02 sec)
+
+mysql> insert into student values(100,"Deepshika",89,98,92,97,"S","Pass");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(101,"Lavanya",98,97,96,93,"S","Pass");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student values(102,"Sai",100,100,100,100,"S","Pass");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values(103,"Harini",97,95,93,92,"S","Pass");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from student;
++--------+-----------+------+-------+------+------+-------+--------+
+| Reg_no | Name      | DBMS | Maths | Java | OS   | Grade | Result |
++--------+-----------+------+-------+------+------+-------+--------+
+|    100 | Deepshika |   89 |    98 |   92 |   97 | S     | Pass   |
+|    101 | Lavanya   |   98 |    97 |   96 |   93 | S     | Pass   |
+|    102 | Sai       |  100 |   100 |  100 |  100 | S     | Pass   |
+|    103 | Harini    |   97 |    95 |   93 |   92 | S     | Pass   |
++--------+-----------+------+-------+------+------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student values(104,"Bottle",24,25,35,17,"F","Fail");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student values(105,"Glass",23,26,08,12,"F","Fail");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from student;
++--------+-----------+------+-------+------+------+-------+--------+
+| Reg_no | Name      | DBMS | Maths | Java | OS   | Grade | Result |
++--------+-----------+------+-------+------+------+-------+--------+
+|    100 | Deepshika |   89 |    98 |   92 |   97 | S     | Pass   |
+|    101 | Lavanya   |   98 |    97 |   96 |   93 | S     | Pass   |
+|    102 | Sai       |  100 |   100 |  100 |  100 | S     | Pass   |
+|    103 | Harini    |   97 |    95 |   93 |   92 | S     | Pass   |
+|    104 | Bottle    |   24 |    25 |   35 |   17 | F     | Fail   |
+|    105 | Glass     |   23 |    26 |    8 |   12 | F     | Fail   |
++--------+-----------+------+-------+------+------+-------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select Reg_no,Grade,
+    -> case
+    -> when Grade="S" then "Distinction"
+    -> when Grade="A" then "Excellent"
+    -> when Grade="B" then "Very good"
+    -> when Grade="C" or Grade="D" then "Average"
+    -> else"Poor"
+    -> end as Performance
+    -> from student;
++--------+-------+-------------+
+| Reg_no | Grade | Performance |
++--------+-------+-------------+
+|    100 | S     | Distinction |
+|    101 | S     | Distinction |
+|    102 | S     | Distinction |
+|    103 | S     | Distinction |
+|    104 | F     | Poor        |
+|    105 | F     | Poor        |
++--------+-------+-------------+
+6 rows in set (0.02 sec)
+
+mysql> select avg(OS) as sum_of_OS from student;
++-----------+
+| sum_of_OS |
++-----------+
+|   68.5000 |
++-----------+
+1 row in set (0.02 sec)
+
+mysql> select sum(DBMS) as sum_of_DBMS from student;
++-------------+
+| sum_of_DBMS |
++-------------+
+|         431 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(Maths) as sum_of_Maths from student;
++--------------+
+| sum_of_Maths |
++--------------+
+|      73.5000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(Java) as sum_of_Java from student;
++-------------+
+| sum_of_Java |
++-------------+
+|         424 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select Name,Reg_no,DBMS from student where DBMS>=95;
++---------+--------+------+
+| Name    | Reg_no | DBMS |
++---------+--------+------+
+| Lavanya |    101 |   98 |
+| Sai     |    102 |  100 |
+| Harini  |    103 |   97 |
++---------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> create view Grades as select*from student where OS>90;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select*from Grades;
++--------+-----------+------+-------+------+------+-------+--------+
+| Reg_no | Name      | DBMS | Maths | Java | OS   | Grade | Result |
++--------+-----------+------+-------+------+------+-------+--------+
+|    100 | Deepshika |   89 |    98 |   92 |   97 | S     | Pass   |
+|    101 | Lavanya   |   98 |    97 |   96 |   93 | S     | Pass   |
+|    102 | Sai       |  100 |   100 |  100 |  100 | S     | Pass   |
+|    103 | Harini    |   97 |    95 |   93 |   92 | S     | Pass   |
++--------+-----------+------+-------+------+------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select*from student order by Name;
++--------+-----------+------+-------+------+------+-------+--------+
+| Reg_no | Name      | DBMS | Maths | Java | OS   | Grade | Result |
++--------+-----------+------+-------+------+------+-------+--------+
+|    104 | Bottle    |   24 |    25 |   35 |   17 | F     | Fail   |
+|    100 | Deepshika |   89 |    98 |   92 |   97 | S     | Pass   |
+|    105 | Glass     |   23 |    26 |    8 |   12 | F     | Fail   |
+|    103 | Harini    |   97 |    95 |   93 |   92 | S     | Pass   |
+|    101 | Lavanya   |   98 |    97 |   96 |   93 | S     | Pass   |
+|    102 | Sai       |  100 |   100 |  100 |  100 | S     | Pass   |
++--------+-----------+------+-------+------+------+-------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select*from student order by Grade;
++--------+-----------+------+-------+------+------+-------+--------+
+| Reg_no | Name      | DBMS | Maths | Java | OS   | Grade | Result |
++--------+-----------+------+-------+------+------+-------+--------+
+|    104 | Bottle    |   24 |    25 |   35 |   17 | F     | Fail   |
+|    105 | Glass     |   23 |    26 |    8 |   12 | F     | Fail   |
+|    100 | Deepshika |   89 |    98 |   92 |   97 | S     | Pass   |
+|    101 | Lavanya   |   98 |    97 |   96 |   93 | S     | Pass   |
+|    102 | Sai       |  100 |   100 |  100 |  100 | S     | Pass   |
+|    103 | Harini    |   97 |    95 |   93 |   92 | S     | Pass   |
++--------+-----------+------+-------+------+------+-------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select*from student where Result="Pass";
++--------+-----------+------+-------+------+------+-------+--------+
+| Reg_no | Name      | DBMS | Maths | Java | OS   | Grade | Result |
++--------+-----------+------+-------+------+------+-------+--------+
+|    100 | Deepshika |   89 |    98 |   92 |   97 | S     | Pass   |
+|    101 | Lavanya   |   98 |    97 |   96 |   93 | S     | Pass   |
+|    102 | Sai       |  100 |   100 |  100 |  100 | S     | Pass   |
+|    103 | Harini    |   97 |    95 |   93 |   92 | S     | Pass   |
++--------+-----------+------+-------+------+------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select*from student where Result="Fail";
++--------+--------+------+-------+------+------+-------+--------+
+| Reg_no | Name   | DBMS | Maths | Java | OS   | Grade | Result |
++--------+--------+------+-------+------+------+-------+--------+
+|    104 | Bottle |   24 |    25 |   35 |   17 | F     | Fail   |
+|    105 | Glass  |   23 |    26 |    8 |   12 | F     | Fail   |
++--------+--------+------+-------+------+------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select Reg_no,Name,DBMS from student order by DBMS DESC;
++--------+-----------+------+
+| Reg_no | Name      | DBMS |
++--------+-----------+------+
+|    102 | Sai       |  100 |
+|    101 | Lavanya   |   98 |
+|    103 | Harini    |   97 |
+|    100 | Deepshika |   89 |
+|    104 | Bottle    |   24 |
+|    105 | Glass     |   23 |
++--------+-----------+------+
+6 rows in set (0.00 sec)
+
+mysql> select Reg_no,Name,DBMS from student order by DBMS ASC;
++--------+-----------+------+
+| Reg_no | Name      | DBMS |
++--------+-----------+------+
+|    105 | Glass     |   23 |
+|    104 | Bottle    |   24 |
+|    100 | Deepshika |   89 |
+|    103 | Harini    |   97 |
+|    101 | Lavanya   |   98 |
+|    102 | Sai       |  100 |
++--------+-----------+------+
+6 rows in set (0.00 sec)

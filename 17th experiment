@@ -1,0 +1,36 @@
+mysql> use saveetha;
+Database changed
+mysql> select*from mentees;
++-----------+-----------+------+---------+------------+-------+---------+
+| Regno     | Name      | Dept | Address | Fathername | Marks | Subject |
++-----------+-----------+------+---------+------------+-------+---------+
+| 192224050 | Deepshika | IT   | Ongole  | Kalyan     |    91 | PDSD    |
+| 192224039 | Lavanya   | CSE  | Ongole  | Srinivas   |    99 | DBMS    |
+| 192222019 | Dharika   | Bio  | Hyd     | Uncle      |    80 | BioEvs  |
+| 192224032 | Harini    | CSE  | BZA     | Uncle      |    95 | DBMS    |
++-----------+-----------+------+---------+------------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select repeat(Name,2) from mentees;
++--------------------+
+| repeat(Name,2)     |
++--------------------+
+| DeepshikaDeepshika |
+| LavanyaLavanya     |
+| DharikaDharika     |
+| HariniHarini       |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select repeat(Dept,2)from mentees;
++----------------+
+| repeat(Dept,2) |
++----------------+
+| ITIT           |
+| CSECSE         |
+| BioBio         |
+| CSECSE         |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql>

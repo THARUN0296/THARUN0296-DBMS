@@ -1,0 +1,166 @@
+ysql> use saveetha;
+Database changed
+mysql> create table car(car_model varchar(10),car_name varchar(20),car_mileage int(20),cost int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc car;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| car_model   | varchar(10) | YES  |     | NULL    |       |
+| car_name    | varchar(20) | YES  |     | NULL    |       |
+| car_mileage | int(20)     | YES  |     | NULL    |       |
+| cost        | int(10)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> insert into car values(2005,"Ford",10,200000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into car values(2006,"Hyundai",15,300000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into car values(2002,"BMW",12,5000000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into car values(2004,"Audi",14,700000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from car;
++-----------+----------+-------------+---------+
+| car_model | car_name | car_mileage | cost    |
++-----------+----------+-------------+---------+
+| 2005      | Ford     |          10 |  200000 |
+| 2006      | Hyundai  |          15 |  300000 |
+| 2002      | BMW      |          12 | 5000000 |
+| 2004      | Audi     |          14 |  700000 |
++-----------+----------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> update car set car_name="Benz" where car_model=2006;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from car;
++-----------+----------+-------------+---------+
+| car_model | car_name | car_mileage | cost    |
++-----------+----------+-------------+---------+
+| 2005      | Ford     |          10 |  200000 |
+| 2006      | Benz     |          15 |  300000 |
+| 2002      | BMW      |          12 | 5000000 |
+| 2004      | Audi     |          14 |  700000 |
++-----------+----------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create table company(Company_name varchar(20), no_of_cars int(3),phone_num int(12));
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into company values('Hyundai motors',36,975432343);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into company values('TVS motors',24,987654345);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into company values('BMW motors',70,987654346);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from company;
++----------------+------------+-----------+
+| Company_name   | no_of_cars | phone_num |
++----------------+------------+-----------+
+| Hyundai motors |         36 | 975432343 |
+| TVS motors     |         24 | 987654345 |
+| BMW motors     |         70 | 987654346 |
++----------------+------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from company where no_of_cars=24;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from company;
++----------------+------------+-----------+
+| Company_name   | no_of_cars | phone_num |
++----------------+------------+-----------+
+| Hyundai motors |         36 | 975432343 |
+| BMW motors     |         70 | 987654346 |
++----------------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select*from car having car_mileage>10;
++-----------+----------+-------------+---------+
+| car_model | car_name | car_mileage | cost    |
++-----------+----------+-------------+---------+
+| 2006      | Benz     |          15 |  300000 |
+| 2002      | BMW      |          12 | 5000000 |
+| 2004      | Audi     |          14 |  700000 |
++-----------+----------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from car having car_model=2002;
++-----------+----------+-------------+---------+
+| car_model | car_name | car_mileage | cost    |
++-----------+----------+-------------+---------+
+| 2002      | BMW      |          12 | 5000000 |
++-----------+----------+-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> select*from car;
++-----------+----------+-------------+---------+
+| car_model | car_name | car_mileage | cost    |
++-----------+----------+-------------+---------+
+| 2005      | Ford     |          10 |  200000 |
+| 2006      | Benz     |          15 |  300000 |
+| 2002      | BMW      |          12 | 5000000 |
+| 2004      | Audi     |          14 |  700000 |
++-----------+----------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select max(cost) from car;
++-----------+
+| max(cost) |
++-----------+
+|   5000000 |
++-----------+
+1 row in set (0.02 sec)
+
+mysql> alter table car add primary key(car_mileage);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc car;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| car_model   | varchar(10) | YES  |     | NULL    |       |
+| car_name    | varchar(20) | YES  |     | NULL    |       |
+| car_mileage | int(20)     | NO   | PRI | 0       |       |
+| cost        | int(10)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create view cost as select*from car where cost>100000;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select*from cost;
++-----------+----------+-------------+---------+
+| car_model | car_name | car_mileage | cost    |
++-----------+----------+-------------+---------+
+| 2005      | Ford     |          10 |  200000 |
+| 2002      | BMW      |          12 | 5000000 |
+| 2004      | Audi     |          14 |  700000 |
+| 2006      | Benz     |          15 |  300000 |
++-----------+----------+-------------+---------+
+4 rows in set (0.02 sec)
+
+mysql> select*from car group by car_name;
++-----------+----------+-------------+---------+
+| car_model | car_name | car_mileage | cost    |
++-----------+----------+-------------+---------+
+| 2004      | Audi     |          14 |  700000 |
+| 2006      | Benz     |          15 |  300000 |
+| 2002      | BMW      |          12 | 5000000 |
+| 2005      | Ford     |          10 |  200000 |
++-----------+----------+-------------+---------+
+4 rows in set (0.02 sec)
+
+mysql>
